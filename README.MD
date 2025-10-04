@@ -1,2 +1,2 @@
 # express-typescript
-for local run npm rn dev
+- check for package.json file to start
