@@ -4,7 +4,7 @@ import { ApiController } from "../Controller/ApiController";
 
 export default function apiRoute(conn: Db): Router {
     const router: Router = Router();
-    
+
     //create object of all controller
     const call_1 = new ApiController(conn);
 

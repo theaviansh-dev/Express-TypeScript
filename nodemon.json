@@ -1,6 +1,9 @@
 {
     "watch": [
-        "src"
+        "src",
+        ".env",
+        "tsconfig.json",
+        "package.json"
     ],
     "ext": "ts,json",
     "ignore": [

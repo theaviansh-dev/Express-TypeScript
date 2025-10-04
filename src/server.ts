@@ -5,10 +5,10 @@ import { Request, Response } from "express";
 import apiRoute from "./routes/apiRoute";
 import { exit } from "process";
 
-const tempM: string | undefined= process.env.MONGOD_URL;
+const tempM: string | undefined = process.env.MONGOD_URL;
 const DB_NAME: string | undefined = process.env.DB_NAME;
 if (!tempM) { console.log("MongoD URL is missing"); exit(1); }
-const MONGOD_URL:string = tempM;
+const MONGOD_URL: string = tempM;
 
 //enviroment
 const app = express();
@@ -33,7 +33,7 @@ async function startServer() {
         app.use('/api', apiRoute(conn));
 
         //servse start
-        const port = process.env.SERVER_PORT || 8000;
+        const port: number = Number(process.env.SERVER_PORT) || 8000;
         server = app.listen(port, () => { console.log(`Server is running on port ${port}`); });
 
         //shut down srver
