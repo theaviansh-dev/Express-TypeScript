@@ -1,0 +1,41 @@
+{
+    "name": "sample_typescript",
+    "version": "1.0.0",
+    "description": "sample repo in express & typescript for backend",
+    "main": "./dist/server.js",
+    "type": "commonjs",
+    "scripts": {
+        "build": "tsc -p tsconfig.json",
+        "start": "node dist/server.js",
+        "dev": "nodemon"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/theaviansh-dev/Express-TypeScript.git"
+    },
+    "keywords": [
+        "expressjs",
+        "typescript"
+    ],
+    "author": "avinash",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/theaviansh-dev/Express-TypeScript/issues"
+    },
+    "homepage": "https://github.com/theaviansh-dev/Express-TypeScript#readme",
+    "dependencies": {
+        "cors": "^2.8.5",
+        "dotenv": "^17.2.2",
+        "express": "^5.1.0",
+        "express-session": "^1.18.2",
+        "mongodb": "^6.20.0",
+        "multer": "^2.0.2"
+    },
+    "devDependencies": {
+        "@types/express": "^5.0.3",
+        "@types/node": "^24.6.2",
+        "nodemon": "^3.1.10",
+        "ts-node": "^10.9.2",
+        "typescript": "^5.9.3"
+    }
+}
