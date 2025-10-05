@@ -1,15 +1,17 @@
 import express from "express";
 import 'dotenv/config';
 import { Db, MongoClient } from "mongodb";
-import { Request, Response } from "express";
 import apiRoute from "./routes/apiRoute";
 import { exit } from "process";
 import CORS from "./Config/CORS";
+import { RootRoute } from "./Config/RootRoute";
 
-const tempM: string | undefined = process.env.MONGOD_URL;
-const DB_NAME: string | undefined = process.env.DB_NAME;
-if (!tempM) { console.log("MongoD URL is missing"); exit(1); }
+//check for db credientials
+const tempM: string | undefined = process.env.MONGOD_URL ?? undefined;
+const DB_NAME: string | undefined = process.env.DB_NAME ?? undefined;
+if (!tempM) { console.log("MongoDB Credential are missing"); exit(1); }
 const MONGOD_URL: string = tempM;
+if (!DB_NAME) { console.log("MongoD Credential are missing"); exit(1); }
 
 //enviroment
 const app = express();
@@ -22,23 +24,17 @@ let server: ReturnType<typeof app.listen>;
 async function startServer() {
     try {
         //create conn
-        dbClient = new MongoClient(MONGOD_URL);
+        dbClient = new MongoClient(MONGOD_URL as string);
         await dbClient.connect();
-        const conn: Db = dbClient.db(DB_NAME);
-
-        //root route
-        app.get('/', (req: Request, res: Response) => {
-            res.status(200).json({ status: 200, message: 'server started' });
-        });
-
-        //api route mount
-        app.use('/api', apiRoute(conn));
+        const conn: Db = dbClient.db(DB_NAME as string);
+        app.get('/', RootRoute);        //root route
+        
+        app.use('/api', apiRoute(conn));        //api route mount
 
         const port: number = Number(process.env.SERVER_PORT) || 8000;       //servse start
         server = app.listen(port, () => { console.log(`Server is running on port ${port}`); });
 
-        //shut down srver
-        process.on('SIGINT', shutdown);process.on('SIGTERM', shutdown);
+        process.on('SIGINT', shutdown); process.on('SIGTERM', shutdown);        //shut down srver
     } catch (err) { console.error('Error while starting server:', err instanceof Error ? err.message : err); process.exit(1); }
 }
 

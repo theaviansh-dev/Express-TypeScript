@@ -1,7 +1,7 @@
 {
     "name": "sample_typescript",
     "version": "1.0.0",
-    "description": "sample repo in express & typescript for backend",
+    "description": "sample repository in express & typescript for backend",
     "main": "./dist/server.js",
     "type": "commonjs",
     "scripts": {
@@ -33,6 +33,7 @@
     },
     "devDependencies": {
         "@types/express": "^5.0.3",
+        "@types/multer": "^2.0.0",
         "@types/node": "^24.6.2",
         "nodemon": "^3.1.10",
         "ts-node": "^10.9.2",
