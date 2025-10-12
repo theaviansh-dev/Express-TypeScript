@@ -15,7 +15,7 @@ if (!DB_NAME) { console.log("MongoD Credential are missing"); exit(1); }
 
 //enviroment
 const app = express();
-CORS(app);
+app.use(CORS());        //cors middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 let dbClient: MongoClient;
@@ -26,9 +26,8 @@ async function startServer() {
         //create conn
         dbClient = new MongoClient(MONGOD_URL as string);
         await dbClient.connect();
-        const conn: Db = dbClient.db(DB_NAME as string);
+        const conn: Db = dbClient.db(DB_NAME);
         app.get('/', RootRoute);        //root route
-        
         app.use('/api', apiRoute(conn));        //api route mount
 
         const port: number = Number(process.env.SERVER_PORT) || 8000;       //servse start
