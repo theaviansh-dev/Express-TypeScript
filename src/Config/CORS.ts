@@ -7,8 +7,7 @@ const parseAllowedOrigins = (): string[] | '*' => {
     const setting = process.env.CORS_ALLOWED ?? '*';
     if (setting === 'false') return [];
     if (setting === '*') return '*';
-    try {
-        return JSON.parse(setting.replace(/'/g, '"'));
+    try { return JSON.parse(setting.replace(/'/g, '"'));
     } catch (e) { if (!isProductionEnv) { console.error('Failed to parse CORS_ALLOWED:', e); } return '*'; }
 };
 
