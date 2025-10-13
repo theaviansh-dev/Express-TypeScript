@@ -26,10 +26,10 @@ async function startServer() {
         dbClient = new MongoClient(MONGOD_URL as string);       //create conn
         await dbClient.connect();
         const conn: Db = dbClient.db(DB_NAME);
-        app.use(NonceHelmet);
-        app.use(CORS());        //cors Middleware
-        app.get('/', RootRoute);        //root route
-        app.use('/api', apiRoute(conn));        //api route mount
+        app.use(NonceHelmet);       //mount NonceHelmet Middleware
+        app.use(CORS());        //mount cors Middleware
+        app.get('/', RootRoute);        //mount root route
+        app.use('/api', apiRoute(conn));        //mount api route
         const port: number = Number(process.env.SERVER_PORT) || 8000;       //server start
         server = app.listen(port, () => { console.log(`Server is running on port ${port}`); });
         process.on('SIGINT', shutdown); process.on('SIGTERM', shutdown);        //shutdown server
