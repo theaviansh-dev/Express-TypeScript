@@ -1,5 +1,6 @@
 import express from "express";
 import 'dotenv/config';
+import morgan from "morgan";
 import { Db, MongoClient } from "mongodb";
 import apiRoute from "./routes/apiRoute";
 import { exit } from "process";
@@ -16,6 +17,7 @@ if (!DB_NAME) { console.log("MongoD Credential are missing"); exit(1); }
 
 //enviroment
 const app = express();
+app.use(morgan(':remote-addr :status :method :response-time ms- ":url"'));        //:user-agent
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 let dbClient: MongoClient;
