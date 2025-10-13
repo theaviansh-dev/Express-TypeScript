@@ -4,3 +4,4 @@ uploads/
 .vscode/
 npm-debug.log/
 .env.example
+run.bat
