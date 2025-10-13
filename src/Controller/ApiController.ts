@@ -1,7 +1,6 @@
 import { Request, Response } from "express";
 import { Db } from "mongodb";
 import multer from "multer";
-
 const upload = multer({ dest: "uploads/" });
 
 export class ApiController {
@@ -16,10 +15,6 @@ export class ApiController {
             res.status(400).json({ status: 400, message: "No file uploaded" });
             return;
         }
-        res.status(200).json({
-            status: 200,
-            message: "File uploaded successfully",
-            file: req.file,
-        });
+        res.status(200).json({status: 200,message: "File uploaded successfully",file: req.file});
     }
 }

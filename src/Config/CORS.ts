@@ -7,7 +7,7 @@ const parseAllowedOrigins = (): string[] | '*' => {
     const setting = process.env.CORS_ALLOWED ?? '*';
     if (setting === 'false') return [];
     if (setting === '*') return '*';
-    try { return JSON.parse(setting.replace(/'/g, '"'));
+    try { !isProductionEnv ? console.log('CORS Array Applied!') : undefined; return JSON.parse(setting.replace(/'/g, '"'));
     } catch (e) { if (!isProductionEnv) { console.error('Failed to parse CORS_ALLOWED:', e); } return '*'; }
 };
 
@@ -15,7 +15,7 @@ export default function useCORS() {
     const allowedOrigins = parseAllowedOrigins();
     if (allowedOrigins === '*') { if (!isProductionEnv) { console.log('CORS Allowed: *'); } return cors(); }
     if (Array.isArray(allowedOrigins) && allowedOrigins.length === 0) {
-        if (!isProductionEnv) console.warn('CORS is disabled');
+        if (!isProductionEnv) console.warn('CORS is Disabled');
         return (req: Request, res: Response) => {
             return res.status(403).json({ error: 'CORS Error', message: 'CORS is disabled on this server', origin: req.headers.origin || null });
         };

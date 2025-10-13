@@ -5,12 +5,13 @@ import apiRoute from "./routes/apiRoute";
 import { exit } from "process";
 import CORS from "./Config/CORS";
 import { RootRoute } from "./Config/RootRoute";
+import NonceHelmet from "./Config/HelmetConfig";
 
 //check for db credientials
 const tempM: string | undefined = process.env.MONGOD_URL ?? undefined;
 const DB_NAME: string | undefined = process.env.DB_NAME ?? undefined;
 if (!tempM) { console.log("MongoDB Credential are missing"); exit(1); }
-const MONGOD_URL: string = tempM;
+const MONGOD_URL: string = tempM as string;
 if (!DB_NAME) { console.log("MongoD Credential are missing"); exit(1); }
 
 //enviroment
@@ -22,20 +23,20 @@ let server: ReturnType<typeof app.listen>;
 
 async function startServer() {
     try {
-        //create conn
-        dbClient = new MongoClient(MONGOD_URL as string);
+        dbClient = new MongoClient(MONGOD_URL as string);       //create conn
         await dbClient.connect();
         const conn: Db = dbClient.db(DB_NAME);
-        app.use(CORS());        //cors middleware
+        app.use(NonceHelmet);
+        app.use(CORS());        //cors Middleware
         app.get('/', RootRoute);        //root route
         app.use('/api', apiRoute(conn));        //api route mount
-        const port: number = Number(process.env.SERVER_PORT) || 8000;       //servse start
+        const port: number = Number(process.env.SERVER_PORT) || 8000;       //server start
         server = app.listen(port, () => { console.log(`Server is running on port ${port}`); });
-        process.on('SIGINT', shutdown); process.on('SIGTERM', shutdown);        //shut down srver
+        process.on('SIGINT', shutdown); process.on('SIGTERM', shutdown);        //shutdown server
     } catch (err) { console.error('Error while starting server:', err instanceof Error ? err.message : err); process.exit(1); }
 }
 
-async function shutdown() {     //suttng down server
+async function shutdown() {     //sutting down server
     console.log('\nshutting down...');
     try { await dbClient.close().then(() => console.log("MongoDB connection closed."));       //close the conn
     } catch (err) { console.error("Error closing MongoDB connection:", err); }
@@ -43,4 +44,4 @@ async function shutdown() {     //suttng down server
     setTimeout(() => { console.error("Forcefully shutting down..."); process.exit(1); }, 5000);
 }
 
-startServer().catch((err) => console.error(err));       //start server
+startServer().catch((err) => console.error(err));       //trigger server

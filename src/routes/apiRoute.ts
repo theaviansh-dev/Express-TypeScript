@@ -5,8 +5,8 @@ import MulterClass from "../Config/MulterClass";
 
 export default function apiRoute(conn: Db): Router {
     const router: Router = Router();
+    const multer: MulterClass = new MulterClass();      //import config for multer
     const c1: ApiController = new ApiController(conn);
-    const multer: MulterClass = new MulterClass();
 
     // define routes and their methods
     router.get('/', c1.apiRoot.bind(c1));       //this will leades to all method for perform operations with db
