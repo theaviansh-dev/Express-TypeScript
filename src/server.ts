@@ -7,6 +7,7 @@ import { exit } from "process";
 import CORS from "./Config/CORS";
 import { RootRoute } from "./Config/RootRoute";
 import NonceHelmet from "./Config/HelmetConfig";
+import ErrorHandler from "./Config/ErrorHandeler";
 
 //check for db credientials
 const tempM: string | undefined = process.env.MONGOD_URL ?? undefined;
@@ -32,8 +33,9 @@ async function startServer() {
         app.use(CORS());        //mount cors Middleware
         app.get('/', RootRoute);        //mount root route
         app.use('/api', apiRoute(conn));        //mount api route
+        app.use(ErrorHandler);      //mount ErrorHandler
         const port: number = Number(process.env.SERVER_PORT) || 8000;       //server start
-        server = app.listen(port, () => { console.log(`Server is running on port ${port}`); });
+        server = app.listen(port, () => { console.log(`Port ${port} is Active!`); });
         process.on('SIGINT', shutdown); process.on('SIGTERM', shutdown);        //shutdown server
     } catch (err) { console.error('Error while starting server:', err instanceof Error ? err.message : err); process.exit(1); }
 }
