@@ -19,7 +19,7 @@ To get this project up and running locally, follow these steps:
 
 1.  **Clone the repository:**
     ```bash
-    git clone [https://github.com/theaviansh-dev/Express-TypeScript.git](https://github.com/theaviansh-dev/Express-TypeScript.git)
+    git clone https://github.com/theaviansh-dev/Express-TypeScript.git
     cd Express-TypeScript
     ```
 
@@ -55,5 +55,9 @@ Use these scripts to manage your project lifecycle:
 #### Development Mode
 For quick development with hot-reloading:
 ```bash
-npm run dev || nodemon
+npm run dev
+```
+Or you Can run
+```bash
+nodemon
 ```
