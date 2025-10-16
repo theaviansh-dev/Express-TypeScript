@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import crypto from 'crypto';
+import { StatusCodes } from "http-status-codes";
 
 const CookieCons = (req: Request, res: Response): string => {
     let key: string | undefined = req.get('cookie');
@@ -14,7 +15,7 @@ const CookieCons = (req: Request, res: Response): string => {
 
 export function RootRoute(req: Request, res: Response): void {
     const key: string = CookieCons(req, res) as string;
-    res.status(200).json({
+    res.status(StatusCodes.OK).json({
         title: 'Ex-Script',
         description: 'This is am sample repository build in express.js and typescript specifically for backend servers with minimal dependencies. Please check for package.json for more information.',
         owner: 'Avinash',

@@ -1,20 +1,19 @@
 import { Request, Response } from "express";
+import { ReasonPhrases, StatusCodes } from "http-status-codes";
 import { Db } from "mongodb";
-import multer from "multer";
-const upload = multer({ dest: "uploads/" });
 
 export class ApiController {
     constructor(private db: Db) { }
 
     public apiRoot(req: Request, res: Response): void {
-        res.status(200).json({ status: 200, message: "express + typescript is onn!" });
+        res.status(StatusCodes.OK).json({ status: StatusCodes.OK, message: ReasonPhrases.OK + ' Evarything works fine' });
     }
 
     public uploadFile(req: Request, res: Response): void {
         if (!req.file) {
-            res.status(400).json({ status: 400, message: "No file uploaded" });
+            res.status(StatusCodes.BAD_REQUEST).json({ status: StatusCodes.BAD_REQUEST, message: "No file uploaded" });
             return;
         }
-        res.status(200).json({status: 200,message: "File uploaded successfully",file: req.file});
+        res.status(StatusCodes.OK).json({ status: StatusCodes.OK, message: "File uploaded successfully", file: req.file });
     }
 }
