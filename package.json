@@ -7,7 +7,9 @@
     "scripts": {
         "build": "tsc -p tsconfig.json",
         "start": "node dist/server.js",
-        "dev": "nodemon"
+        "rem-build": "rmdir /s /q dist",
+        "dev": "nodemon",
+        "test": "mocha -r ts-node/register src/Test/**/*.ts"
     },
     "repository": {
         "type": "git",
@@ -38,11 +40,17 @@
         "zod": "^4.1.12"
     },
     "devDependencies": {
+        "@types/chai": "^5.2.2",
         "@types/cors": "^2.8.19",
         "@types/express": "^5.0.3",
+        "@types/mocha": "^10.0.10",
         "@types/multer": "^2.0.0",
         "@types/node": "^24.6.2",
+        "@types/supertest": "^6.0.3",
+        "chai": "^6.2.0",
+        "mocha": "^11.7.4",
         "nodemon": "^3.1.10",
+        "supertest": "^7.1.4",
         "ts-node": "^10.9.2",
         "typescript": "^5.9.3"
     }
