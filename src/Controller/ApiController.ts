@@ -1,12 +1,13 @@
 import { Request, Response } from "express";
-import { ReasonPhrases, StatusCodes } from "http-status-codes";
+import { StatusCodes } from "http-status-codes";
 import { Db } from "mongodb";
 
 export class ApiController {
     constructor(private db: Db) { }
 
-    public apiRoot(req: Request, res: Response): void {
-        res.status(StatusCodes.OK).json({ status: StatusCodes.OK, message: ReasonPhrases.OK + ' Evarything works fine' });
+    public async apiRoot(req: Request, res: Response): Promise<void> {
+        const collectionList_Prosess = await this.db.listCollections().toArray().catch((err) => { return err.message });
+        res.status(StatusCodes.OK).json(collectionList_Prosess);
     }
 
     public uploadFile(req: Request, res: Response): void {
