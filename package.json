@@ -1,6 +1,6 @@
 {
     "name": "Express-TypeScript",
-    "version": "1.7.0",
+    "version": "1.7.1",
     "description": "sample repository in express & typescript for backend",
     "main": "./dist/server.js",
     "type": "commonjs",

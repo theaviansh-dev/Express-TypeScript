@@ -27,8 +27,5 @@ async function connectDB(): Promise<{ conn: Db; client: MongoClient }> {
     } catch (err) { throw 'MongoDB connection error' + err; }
 }
 
-async function dbClose() {
-    await dbClient?.close().then(() => { console.log('\nMongoDB connection closed') }).catch((err) => console.log(err));
-}
-
+async function dbClose() { await dbClient?.close().catch((err) => console.log(err)); }
 export { connectDB, dbClose };     //export dbcon details

@@ -8,7 +8,7 @@ export async function startServer() {
     const { conn } = await connectDB();     //trigger database conn
     app.use('/api', apiRoute(conn));        //mount api route
     app.use(NOT_FOUND);      //mount NOT_FOUND
-    startListning();        //start server
+    if (require.main === module) { startListning(); }       //start server
     process.on('SIGINT', shutdown); process.on('SIGTERM', shutdown);
 }
 
@@ -17,4 +17,6 @@ export async function shutdown() {
     CloseListning();        //stop server
 }
 
-startServer().catch(err => { console.error('Error while starting server:', err); process.exit(1) });       //trigger machine
+if (require.main === module) {
+    startServer().catch(err => { console.error('Error while starting server:', err); process.exit(1) });       //trigger machine
+}
