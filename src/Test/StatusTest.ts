@@ -10,14 +10,14 @@ before(async () => {
 });
 
 describe('ROOT', (): void => {
-    it(ReasonPhrases.OK, async () => {
+    it(ReasonPhrases.OK, async (): Promise<void> => {
         const res = await request(app).get('/');
         expect(res.status).to.equal(StatusCodes.OK);
     });
 });
 
 describe('API_ROOT', (): void => {
-    it(ReasonPhrases.OK, async () => {
+    it(ReasonPhrases.OK, async (): Promise<void> => {
         const res = await request(app).get('/api/');
         expect(res.status).to.equal(StatusCodes.OK);
     });

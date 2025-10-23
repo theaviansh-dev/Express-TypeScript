@@ -9,7 +9,8 @@ A **sample repository in Express & TypeScript for backend** development. This pr
 * **Security:** Includes **Helmet** for setting various HTTP headers to secure your app.
 * **Database:** Includes support for **MongoDB**.
 * **File Uploads:** Ready for use with **Multer** for handling `multipart/form-data`.
-* **Input Validation:** Uses **validator** for sanitization and validation of user input.
+* **Input Validation:** Uses **ZOD** for sanitization and validation of user input.
+* **Perform Tests:** Perform test using **Mocha** + **Chai** + **Supertest** for testing apis.
 
 ---
 
@@ -31,7 +32,7 @@ To get this project up and running locally, follow these steps:
 3.  **Configuration:**
     To get the project up and running, you need to configure the MongoDB URI and set the desired port for the server. Please follow the steps below to ensure everything is set up correctly.
 
-    ### i. Update MongoDB URI
+    **Update MongoDB URI:**
     You will need to update the MongoDB connection string to match your credentials and the database you wish to connect to. The URI should include the username, password, and database name.
 
     **Example MongoDB URI**:
@@ -49,6 +50,8 @@ Use these scripts to manage your project lifecycle:
 | `npm run build` | **Compiles** the TypeScript source code (`.ts` files) into executable JavaScript in the `dist/` directory. |
 | `npm start` | **Runs** the compiled application in the `dist/server.js` file. This is typically used for production. |
 | `npm run dev` | **Starts the development server** using **nodemon** to watch for file changes and automatically restart the application. |
+| `npm run rem-build` | **Remove the last build that have been created.** that is (`dist/`) directory. |
+| `npm test` | **Run Test Srcipt** This will leads to perform test on your project. that is in `src/Test/` |
 
 ### Running the Project
 
@@ -56,8 +59,4 @@ Use these scripts to manage your project lifecycle:
 For quick development with hot-reloading:
 ```bash
 npm run dev
-```
-Or you Can run
-```bash
-nodemon
 ```
